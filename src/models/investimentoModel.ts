@@ -15,7 +15,13 @@ const getAsset = async ( CodAtivo: number ): Promise<IAsset[]> => {
   return rows as IAsset[];
 }
 
+const updateAssetStock = async ( QtdeAtivo: number, CodAtivo: number ): Promise<ResultSetHeader> => {
+  const updateQuery = `UPDATE Corretora.Ativos SET QtdeAtivo = ? WHERE CodAtivo = ?;`;
+  const [ result ] = await connection.execute( updateQuery, [ QtdeAtivo, CodAtivo ] );
+  return result as ResultSetHeader;
+}
 export default {
   addPurchase,
   getAsset,
+  updateAssetStock,
 }
