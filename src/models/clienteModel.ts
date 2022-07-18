@@ -1,3 +1,4 @@
+import { ResultSetHeader } from 'mysql2';
 import IClient from '../interfaces/IClient';
 import connection from './connection';
 
@@ -19,6 +20,14 @@ const getAssetsByClient = async( id: number ) => {
   return result
 }
 
+const decreaseClientBalance = async ( Value: number, CodCliente: number ): Promise<ResultSetHeader> => {
+  const updateQuery = `UPDATE Corretora.Clientes SET Saldo = ? WHERE CodCliente = ?;`;
+  const [ result ] = await connection.execute( updateQuery, [ Value, CodCliente ] );
+  return result as ResultSetHeader;
+}
+
 export default {
-  getAssetsByClient
+  getClient,
+  getAssetsByClient,
+  decreaseClientBalance
 }
