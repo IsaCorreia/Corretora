@@ -1,4 +1,5 @@
 import { ResultSetHeader } from 'mysql2';
+import IAsset from '../interfaces/IAsset';
 import connection from './connection';
 
 const addPurchase = async ( CodCliente: number, CodAtivo: number, QtdeAtivo: number ): Promise<ResultSetHeader> => {
@@ -8,6 +9,13 @@ const addPurchase = async ( CodCliente: number, CodAtivo: number, QtdeAtivo: num
   return result as ResultSetHeader;
 }
 
+const getAsset = async ( CodAtivo: number ): Promise<IAsset[]> => {
+  const getQuery = `SELECT * FROM Corretora.Ativos WHERE CodAtivo = ?;`;
+  const [rows] = await connection.execute( getQuery, [ CodAtivo ] );
+  return rows as IAsset[];
+}
+
 export default {
   addPurchase,
+  getAsset,
 }
