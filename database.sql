@@ -15,11 +15,11 @@ CREATE TABLE Corretora.Ativos (
 );
 
 CREATE TABLE Corretora.Ativos_Cliente (
+  CodOperacao INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
   CodCliente INTEGER,
   FOREIGN KEY (CodCliente) REFERENCES Corretora.Clientes (CodCliente),
   CodAtivo INTEGER,
   FOREIGN KEY (CodAtivo) REFERENCES Corretora.Ativos (CodAtivo),
-  PRIMARY KEY (CodCliente, CodAtivo),
   QtdeAtivo INTEGER
 );
 
