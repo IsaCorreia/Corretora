@@ -14,6 +14,7 @@ investimentoController.get( '/:id', async ( req: Request, res: Response ): Promi
   return res.status(OK).json(asset)
  })
 
+investimentoController.post( '/comprar', async ( req: Request, res: Response ): Promise<Response> => {
   await investimentoService.buyAssets( req );
   return res.status( CREATED ).json({message: 'Ações compradas'});
 } )

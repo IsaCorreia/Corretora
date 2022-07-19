@@ -3,7 +3,7 @@ import IAsset from '../interfaces/IAsset';
 import clienteModel from '../models/clienteModel';
 import investimentoModel from '../models/investimentoModel';
 
-const buyAssets = async ( req: Request ) => {
+const buyAssets = async ( req: Request ): Promise<void> => {
   const { CodCliente, CodAtivo, QtdeAtivo } = req.body;
   // Adiciona a compra ao registro
   await investimentoModel.addPurchase( CodCliente, CodAtivo, QtdeAtivo );
