@@ -25,6 +25,15 @@ const getAssets = async (): Promise<IAsset[]> => {
   return assets;
 }
 
+const getAssetById = async ( req: Request ): Promise<IAsset> => {
+  const { id } = req.params;
+  const [asset] = await investimentoModel.getAsset(Number(id));
+  return asset;
+}
+
+
 export default {
   getAssets,
+  getAssetById,
+  buyAssets,
 }
