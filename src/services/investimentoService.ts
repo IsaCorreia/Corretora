@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import IAsset from '../interfaces/IAsset';
 import clienteModel from '../models/clienteModel';
 import investimentoModel from '../models/investimentoModel';
 
@@ -19,6 +20,11 @@ const buyAssets = async ( req: Request ) => {
   
 }
 
+const getAssets = async (): Promise<IAsset[]> => {
+  const assets = await investimentoModel.getAllAssets();
+  return assets;
+}
+
 export default {
-  buyAssets
+  getAssets,
 }
