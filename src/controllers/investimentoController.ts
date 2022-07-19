@@ -9,7 +9,11 @@ investimentoController.get( '/', async ( req: Request, res: Response ): Promise<
   return res.status(OK).json(assets)
  })
 
-investimentoController.post( '/comprar', async ( req: Request, res: Response ) => {
+investimentoController.get( '/:id', async ( req: Request, res: Response ): Promise<Response> => {
+  const asset = await investimentoService.getAssetById(req);
+  return res.status(OK).json(asset)
+ })
+
   await investimentoService.buyAssets( req );
   return res.status( CREATED ).json({message: 'Ações compradas'});
 } )
