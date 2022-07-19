@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { CREATED } from 'http-status-codes';
+import { CREATED, OK } from 'http-status-codes';
 import investimentoService from '../services/investimentoService';
 
 const investimentoController = Router();
