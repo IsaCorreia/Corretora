@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { CREATED, OK } from 'http-status-codes';
+import validateAssetStock from '../middlewares/validateAssetStock';
 import investimentoService from '../services/investimentoService';
 
 const investimentoController = Router();
@@ -14,7 +15,7 @@ investimentoController.get( '/:id', async ( req: Request, res: Response ): Promi
   return res.status(OK).json(asset)
  })
 
-investimentoController.post( '/comprar', async ( req: Request, res: Response ): Promise<Response> => {
+investimentoController.post( '/comprar', validateAssetStock, async ( req: Request, res: Response ): Promise<Response> => {
   await investimentoService.buyAssets( req );
   return res.status( CREATED ).json({message: 'Ações compradas'});
 } )
