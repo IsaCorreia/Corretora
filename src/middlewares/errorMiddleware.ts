@@ -8,5 +8,5 @@ export default function errorMiddleware(
   _next: NextFunction
 ): Response {
   const { status, message } = err as HttpException;
-  return res.status(status || 500).json({ message });
+  return res.status(status || 500).send( message || 'Algo deu errado. Tente novamente mais tarde.');
 }
