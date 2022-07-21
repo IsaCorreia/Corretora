@@ -25,7 +25,7 @@ const buyAssets = async (req: Request): Promise<void> => {
   if (purchaseInfo === undefined) {
     await investimentoModel.addPurchase(CodCliente, CodAtivo, QtdeAtivo);
   } else {
-    const newPurchaseRegistry:number = purchaseInfo.QtdeAtivo + QtdeAtivo;
+    const newPurchaseRegistry:number = Number(purchaseInfo.QtdeAtivo) + Number(QtdeAtivo);
     await investimentoModel.updatePurchase(
       CodCliente,
       CodAtivo,
