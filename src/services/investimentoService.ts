@@ -44,24 +44,37 @@ const buyAssets = async (req: Request): Promise<void> => {
   await clienteModel.updateClientBalance(newClientBalance, CodCliente);
 };
 
-const buyAssets = async ( req: Request ): Promise<void> => {
-  const { CodCliente, CodAtivo, QtdeAtivo } = req.body;
+const sellAssets = async (req: Request): Promise<void> => {
+  const { CodCliente, CodAtivo, QtdeAtivo } = req.body as IPurchase;
   // Adiciona a compra ao registro
-  await investimentoModel.addPurchase( CodCliente, CodAtivo, QtdeAtivo );
+  const [purchaseInfo] = await investimentoModel.getPurchase(
+    CodCliente,
+    CodAtivo
+  );
+  const newPurchaseRegistry: number = purchaseInfo.QtdeAtivo - QtdeAtivo;
+  await investimentoModel.updatePurchase(
+    CodCliente,
+    CodAtivo,
+    newPurchaseRegistry
+  );
 
   // Recupera informações do ativo para atualizar o estoque da Corretora
-  const [assetInfo] = await investimentoModel.getAsset( CodAtivo );
-  const newAssetStock = Number(assetInfo.QtdeAtivo - QtdeAtivo);
-  await investimentoModel.updateAssetStock( newAssetStock, CodAtivo );
+  const [assetInfo] = await investimentoModel.getAsset(CodAtivo);
+  const newAssetStock: number = Number(assetInfo.QtdeAtivo) + Number(QtdeAtivo);
+  console.log(newAssetStock);
+  
+  await investimentoModel.updateAssetStock(newAssetStock, CodAtivo);
 
   // Recupera saldo Cliente para débito
-  const [clientInfo] = await clienteModel.getClient( CodCliente );  
-  const newClientBalance = Number(clientInfo.Saldo) - (Number(assetInfo.Valor) * QtdeAtivo);
-  await clienteModel.decreaseClientBalance( newClientBalance, CodCliente );
-}
+  const [clientInfo] = await clienteModel.getClient(CodCliente);
+  const newClientBalance =
+    Number(clientInfo.Saldo) + (Number(assetInfo.Valor) * QtdeAtivo);
+  await clienteModel.updateClientBalance(newClientBalance, CodCliente);
+};
 
 export default {
   getAssets,
   getAssetById,
   buyAssets,
-}
+  sellAssets,
+};
