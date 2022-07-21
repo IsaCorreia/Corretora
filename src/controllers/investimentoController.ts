@@ -5,15 +5,21 @@ import investimentoService from "../services/investimentoService";
 
 const investimentoController = Router();
 
-investimentoController.get( '/', async ( req: Request, res: Response ): Promise<Response> => {
-  const assets = await investimentoService.getAssets();
-  return res.status(OK).json(assets)
- })
+investimentoController.get(
+  "/",
+  async (_req: Request, res: Response): Promise<Response> => {
+    const assets = await investimentoService.getAssets();
+    return res.status(OK).json(assets);
+  }
+);
 
-investimentoController.get( '/:id', async ( req: Request, res: Response ): Promise<Response> => {
-  const asset = await investimentoService.getAssetById(req);
-  return res.status(OK).json(asset)
- })
+investimentoController.get(
+  "/:id",
+  async (req: Request, res: Response): Promise<Response> => {
+    const asset = await investimentoService.getAssetById(req);
+    return res.status(OK).json(asset);
+  }
+);
 
 investimentoController.post(
   "/comprar",
