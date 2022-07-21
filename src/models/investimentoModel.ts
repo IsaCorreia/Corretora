@@ -5,9 +5,9 @@ import connection from "./connection";
 
 const getAllAssets = async (): Promise<IAsset[]> => {
   const getQuery = `SELECT * FROM Corretora.Ativos;`;
-  const [ rows ] = await connection.execute( getQuery );
+  const [rows] = await connection.execute(getQuery);
   return rows as IAsset[];
-}
+};
 
 const getPurchase = async (
   CodCliente: number,
@@ -25,6 +25,14 @@ const addPurchase = async (
 ): Promise<ResultSetHeader> => {
   // Adicionar 'CodCliente','CodAtivo','QtdeAtivo' à 'Ativos_Cliente'
   const addQuery = `INSERT INTO Corretora.Ativos_Cliente(CodCliente, CodAtivo, QtdeAtivo) VALUES (?, ?, ?);`;
+  const [result] = await connection.execute(addQuery, [
+    CodCliente,
+    CodAtivo,
+    QtdeAtivo,
+  ]);
+  return result as ResultSetHeader;
+};
+
 const updatePurchase = async (
   CodCliente: number,
   CodAtivo: number,
@@ -37,23 +45,28 @@ const updatePurchase = async (
     CodAtivo,
   ]);
   return result as ResultSetHeader;
-}
+};
 
-const getAsset = async ( CodAtivo: number ): Promise<IAsset[]> => {
+const getAsset = async (CodAtivo: number): Promise<IAsset[]> => {
   const getQuery = `SELECT * FROM Corretora.Ativos WHERE CodAtivo = ?;`;
-  const [rows] = await connection.execute( getQuery, [ CodAtivo ] );
+  const [rows] = await connection.execute(getQuery, [CodAtivo]);
   return rows as IAsset[];
-}
+};
 
-const updateAssetStock = async ( QtdeAtivo: number, CodAtivo: number ): Promise<ResultSetHeader> => {
+const updateAssetStock = async (
+  QtdeAtivo: number,
+  CodAtivo: number
+): Promise<ResultSetHeader> => {
   const updateQuery = `UPDATE Corretora.Ativos SET QtdeAtivo = ? WHERE CodAtivo = ?;`;
-  const [ result ] = await connection.execute( updateQuery, [ QtdeAtivo, CodAtivo ] );
+  const [result] = await connection.execute(updateQuery, [QtdeAtivo, CodAtivo]);
   return result as ResultSetHeader;
-}
+};
+
 export default {
   getAllAssets,
   getPurchase,
   addPurchase,
+  updatePurchase,
   getAsset,
   updateAssetStock,
-}
+};
