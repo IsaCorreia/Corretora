@@ -25,7 +25,17 @@ const addPurchase = async (
 ): Promise<ResultSetHeader> => {
   // Adicionar 'CodCliente','CodAtivo','QtdeAtivo' à 'Ativos_Cliente'
   const addQuery = `INSERT INTO Corretora.Ativos_Cliente(CodCliente, CodAtivo, QtdeAtivo) VALUES (?, ?, ?);`;
-  const [ result ] = await connection.execute( addQuery, [ CodCliente, CodAtivo, QtdeAtivo ] );
+const updatePurchase = async (
+  CodCliente: number,
+  CodAtivo: number,
+  QtdeAtivo: number
+): Promise<ResultSetHeader> => {
+  const updateQuery = `UPDATE Corretora.Ativos_Cliente SET QtdeAtivo = ? WHERE CodCliente = ? AND CodAtivo = ?;`;
+  const [result] = await connection.execute(updateQuery, [
+    QtdeAtivo,
+    CodCliente,
+    CodAtivo,
+  ]);
   return result as ResultSetHeader;
 }
 
