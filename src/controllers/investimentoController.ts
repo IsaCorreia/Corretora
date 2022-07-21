@@ -34,7 +34,7 @@ investimentoController.post(
 investimentoController.post(
   "/vender",
   middlewares.validateAssetRequest,
-  // middlewares.validateAssetBalance,
+  middlewares.validateAssetBalance,
   async (req: Request, res: Response): Promise<Response> => {
     await investimentoService.sellAssets(req);
     return res.status(CREATED).json({ message: "Ações vendidas" });
