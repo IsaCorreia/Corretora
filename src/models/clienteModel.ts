@@ -20,7 +20,7 @@ const getAssetsByClient = async( id: number ) => {
   return result
 }
 
-const decreaseClientBalance = async ( Value: number, CodCliente: number ): Promise<ResultSetHeader> => {
+const updateClientBalance = async ( Value: number, CodCliente: number ): Promise<ResultSetHeader> => {
   const updateQuery = `UPDATE Corretora.Clientes SET Saldo = ? WHERE CodCliente = ?;`;
   const [ result ] = await connection.execute( updateQuery, [ Value, CodCliente ] );
   return result as ResultSetHeader;
@@ -29,5 +29,5 @@ const decreaseClientBalance = async ( Value: number, CodCliente: number ): Promi
 export default {
   getClient,
   getAssetsByClient,
-  decreaseClientBalance
+  updateClientBalance
 }
