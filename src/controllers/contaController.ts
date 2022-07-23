@@ -27,6 +27,7 @@ contaController.post(
 contaController.post(
   "/saque",
   /* authClient, */
+  middlewaresIndex.validateAccountBalance,
   middlewaresIndex.validateAccountOperation,
   async (req: Request, res: Response): Promise<Response> => {
     await contaService.withdraw(req);

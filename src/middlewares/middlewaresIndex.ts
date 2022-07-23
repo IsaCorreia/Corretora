@@ -1,4 +1,5 @@
 import errorMiddleware from "./errorMiddleware";
+import validateAccountBalance from "./validateAccountBalance";
 import validateAccountOperation from "./validateAccountOperation";
 import validateAssetBalance from "./validateAssetBalance";
 import validateAssetRequest from "./validateAssetRequest";
@@ -9,4 +10,5 @@ export default {
   validateAssetStock,
   validateAssetBalance,
   validateAccountOperation,
+  validateAccountBalance,
 };
