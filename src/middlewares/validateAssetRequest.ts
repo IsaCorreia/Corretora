@@ -6,7 +6,7 @@ import HttpException from "../utils/HttpException";
 const schema = Joi.object({
   CodCliente: Joi.number().required(),
   CodAtivo: Joi.number().required(),
-  QtdeAtivo: Joi.number().required(),
+  QtdeAtivo: Joi.number().min(1).required(),
 });
 
 export default function validateAssetRequest(
