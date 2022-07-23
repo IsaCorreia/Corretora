@@ -15,7 +15,15 @@ const deposit = async (req: Request): Promise<void> => {
   await contaModel.updateBalance(CodCliente, deposit);
 };
 
+const withdraw = async (req: Request): Promise<void> => {
+  const { CodCliente, Valor } = req.body;
+  const [{ Saldo }] = await contaModel.getBalance(Number(CodCliente));
+  const deposit: number = Number(Saldo) - Number(Valor);
+  await contaModel.updateBalance(CodCliente, deposit);
+};
+
 export default {
   getBalance,
   deposit,
+  withdraw,
 };
