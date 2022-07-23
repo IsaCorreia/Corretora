@@ -24,4 +24,14 @@ contaController.post(
   }
 );
 
+contaController.post(
+  "/saque",
+  /* authClient, */
+  middlewaresIndex.validateAccountOperation,
+  async (req: Request, res: Response): Promise<Response> => {
+    await contaService.withdraw(req);
+    return res.status(CREATED).json({ message: "Saque efetuado" });
+  }
+);
+
 export default contaController;
