@@ -53,7 +53,8 @@ const updatePurchase = async (
   CodAtivo: number,
   QtdeAtivo: number
 ): Promise<ResultSetHeader> => {
-  const updateQuery = `UPDATE Corretora.Ativos_Cliente SET QtdeAtivo = ? WHERE CodCliente = ? AND CodAtivo = ?;`;
+  const updateQuery = `UPDATE Corretora.Ativos_Cliente SET QtdeAtivo = ? 
+  WHERE CodCliente = ? AND CodAtivo = ?;`;
   const [result] = await connection.execute(updateQuery, [
     QtdeAtivo,
     CodCliente,
