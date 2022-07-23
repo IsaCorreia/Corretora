@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { CREATED, OK } from "http-status-codes";
+import middlewaresIndex from "../middlewares/middlewaresIndex";
 import contaService from "../services/contaService";
 
 const contaController = Router();
@@ -10,6 +11,16 @@ contaController.get(
   async (req: Request, res: Response): Promise<Response> => {
     const balance = await contaService.getBalance(req);
     return res.status(OK).json(balance);
+  }
+);
+
+contaController.post(
+  "/deposito",
+  /* authClient, */
+  middlewaresIndex.validateAccountOperation,
+  async (req: Request, res: Response): Promise<Response> => {
+    await contaService.deposit(req);
+    return res.status(CREATED).json({ message: "Depósito efetuado" });
   }
 );
 
