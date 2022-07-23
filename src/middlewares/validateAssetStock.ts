@@ -6,7 +6,7 @@ import HttpException from "../utils/HttpException";
 
 export default async function validateAssetStock(
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ): Promise<void | Response> {
   const { CodAtivo, QtdeAtivo } = req.body as IPurchase;
