@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UNPROCESSABLE_ENTITY } from "http-status-codes";
-import contaModel from "../models/contaModel";
+import checkBalance from '../utils/checkBalance';
 import HttpException from "../utils/HttpException";
 
 export default async function validateAccountBalance(
@@ -9,8 +9,7 @@ export default async function validateAccountBalance(
   next: NextFunction
 ) {
   const { CodCliente, Valor } = req.body;
-  const [{Saldo}] = await contaModel.getBalance(Number(CodCliente));
-  if (Number(Saldo) < Valor)
-    throw new HttpException(UNPROCESSABLE_ENTITY, "Saldo insuficiente");
+  const canPurchase: boolean = await checkBalance( CodCliente, Valor );
+  if ( !canPurchase ) throw new HttpException( UNPROCESSABLE_ENTITY, "Saldo insuficiente" );
   next();
 }
