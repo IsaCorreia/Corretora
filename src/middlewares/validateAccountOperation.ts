@@ -5,7 +5,7 @@ import HttpException from "../utils/HttpException";
 
 const schema = Joi.object({
   CodCliente: Joi.number().required(),
-  Valor: Joi.number().min(0).required(),
+  Valor: Joi.number().min(1).required(),
 });
 
 export default function validateAccountOperation(
