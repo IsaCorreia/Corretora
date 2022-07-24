@@ -25,6 +25,7 @@ services:
     container_name: corretora_db
     image: mysql:8.0.21
     restart: always
+    volumes: [./init:/docker-entrypoint-initdb.d/]
     ports:
       - 3306:3306
       - 33060:33060
