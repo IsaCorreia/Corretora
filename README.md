@@ -29,7 +29,7 @@ Clone o repositório:
   cd Corretora
 ```
 
-Instale as depencências:
+Instale as dependências:
 
 ```bash
   npm install
@@ -51,7 +51,6 @@ Os endpoints da apicação estão separados em grupos de rotas abaixo:
 
 <details>
 <summary>Rotas para `/investimentos`</summary>
-<br>
 
 ### Retorna todos os ativos
 
@@ -72,7 +71,6 @@ Os endpoints da apicação estão separados em grupos de rotas abaixo:
   }
 ]
 </code>
-<br>
 </details>
 
 ### Retorna um ativo
@@ -96,7 +94,6 @@ Os endpoints da apicação estão separados em grupos de rotas abaixo:
   "Valor": "18"
 }
 </code>
-<br>
 </details>
 
 ### Compra de ativos
@@ -111,11 +108,14 @@ Os endpoints da apicação estão separados em grupos de rotas abaixo:
 | `CodAtivo`   | `number` | **Obrigatório**. O ID do ativo desejado.                             |
 | `QtdeAtivo`  | `number` | **Obrigatório**. A quantidade do ativo desejado.                     |
 
-Verificações:
+<details>
+<summary>Verificações:</summary>
 
 - `QtdeAtivo` deve ser igual a 1 ou maior que 1.
 - O ativo solicitado possui estoque suficiente.
 - O Saldo em conta da pessoa cliente deve ser igual ou maior que o valor total da compra.
+
+</details>
 
 ### Venda de ativos
 
@@ -129,16 +129,17 @@ Verificações:
 | `CodAtivo`   | `number` | **Obrigatório**. O ID do ativo desejado.                             |
 | `QtdeAtivo`  | `number` | **Obrigatório**. A quantidade do ativo desejado.                     |
 
-Verificações:
+<details>
+<summary>Verificações:</summary>
 
 - `QtdeAtivo` deve ser igual a 1 ou maior que 1.
 - A pessoa cliente possui quantidade igual a 1 ou maior que 1 do ativo solicitado.
 
 </details>
+</details>
 
 <details>
 <summary> Rotas para `/conta`</summary>
-<br>
 
 ### Retorna o saldo da conta
 
@@ -159,7 +160,6 @@ Verificações:
 	"Saldo": "100"
 }
 </code>
-<br>
 </details>
 
 ### Depósito na conta
@@ -184,15 +184,17 @@ Verificações:
 | `CodCliente` | `number`  | **Obrigatório**. O ID da conta para efetuar o depósito |
 | `Valor`      | `decimal` | **Obrigatório**. Valor do depósito                     |
 
-Verificações:
+<details>
+<summary>Verificações:</summary>
 
 - A conta da pessoa cliente possui saldo menor ou igual ao valor solicitado apra saque.
 
 </details>
 
+</details>
+
 <details>
 <summary>Rotas para `/ativos`</summary>
-<br>
 
 ### Retorna os ativos da conta
 
@@ -206,7 +208,6 @@ Verificações:
 
 <details>
 <summary>Retorno:</summary>
-
 <code>
 [
   {
@@ -217,8 +218,5 @@ Verificações:
   }
 ]
 </code>
-<br>
-
 </details>
-
 </details>
