@@ -4,7 +4,9 @@ Este projeto foi desenvolvido simulando o Back-End de uma corretora de ações +
 
 ## Decisões de desenvolvimento
 
-A escolha pela containerização do projeto foi
+A escolha pela containerização do projeto foi tomada logo no início do desenvolvimento para a normalização do ambiente de desenvolvimento.
+
+O banco de dados utilizado foi MySQL, acessado via queries (biblioteca mysql2) por sentir mais segurança com esse método, mas conforme o desenvolvimento avançou, gostaria de ter atualizado o acesso para Sequelize - tanto pela segurança de acesso, quanto pela flexibilidade em mudar a base do banco de dados.
 
 ## Funcionalidades
 
@@ -39,8 +41,21 @@ Inicie os containeres:
 
 ```bash
   docker-compose up -d
+```
+
+Iniciar o banco de dados:
+
+```bash
+  docker exec -it corretora_db bash
+  cd docker-entrypoint-initdb.d/ &&  mysql -uroot -ppassword < database.sql
+  exit
+```
+
+Iniciar a API:
+
+```bash
   docker exec -it corretora bash
-  npm run dev
+  npm start
 ```
 
 A API será iniciada, para acessá-la, abra em seu navegador o endereço `http://localhost:3000/`
