@@ -206,15 +206,10 @@ Os endpoints da apicação estão separados em grupos de rotas abaixo:
 
 </details>
 
-</details>
-
-<details>
-<summary>Rotas para `/ativos`</summary>
-
 ### Retorna os ativos da conta
 
 ```http
-  GET /ativos/${id}
+  GET /conta/ativos/${id}
 ```
 
 | Parâmetro | Tipo     | Descrição                                       |
@@ -234,4 +229,5 @@ Os endpoints da apicação estão separados em grupos de rotas abaixo:
 ]
 </code>
 </details>
+
 </details>
