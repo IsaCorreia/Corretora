@@ -35,4 +35,13 @@ contaController.post(
   }
 );
 
+contaController.get(
+  "/ativos/:id",
+  /* authClient */
+  async (req: Request, res: Response): Promise<Response> => {
+    const assets = await contaService.getAssetsByClient(req);
+    return res.status(OK).json(assets);
+  }
+);
+
 export default contaController;
