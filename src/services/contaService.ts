@@ -1,6 +1,13 @@
 import { Request } from "express";
+import IAsset from '../interfaces/IAsset';
 import IClient from "../interfaces/IClient";
 import contaModel from "../models/contaModel";
+const getAssetsByClient = async (req: Request): Promise<IAsset[]> => {
+  const { id } = req.params;
+  const assets = await contaModel.getAssetsByClient(Number(id));
+  return assets as IAsset[];
+};
+
 
 const getBalance = async (req: Request): Promise<IClient> => {
   const { id } = req.params;
@@ -23,6 +30,7 @@ const withdraw = async (req: Request): Promise<void> => {
 };
 
 export default {
+  getAssetsByClient,
   getBalance,
   deposit,
   withdraw,
