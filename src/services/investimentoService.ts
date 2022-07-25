@@ -2,7 +2,7 @@ import { Request } from "express";
 import { UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import IAsset from "../interfaces/IAsset";
 import IPurchase from "../interfaces/IPurchase";
-import clienteModel from "../models/clienteModel";
+import contaModel from "../models/contaModel";
 import investimentoModel from "../models/investimentoModel";
 import checkBalance from '../utils/checkBalance';
 import HttpException from '../utils/HttpException';
@@ -22,7 +22,7 @@ const buyAssets = async (req: Request): Promise<void> => {
   const { CodCliente, CodAtivo, QtdeAtivo } = req.body as IPurchase;
   // Recupera saldo Cliente e estoque de ativos
   const [assetInfo] = await investimentoModel.getAsset(CodAtivo);
-  const [clientInfo] = await clienteModel.getClient(CodCliente);
+  const [clientInfo] = await contaModel.getClient(CodCliente);
   
   const transactionValue: number = assetInfo.QtdeAtivo * QtdeAtivo;
   const canPurchase: boolean = await checkBalance( CodCliente, transactionValue );
@@ -32,7 +32,7 @@ const buyAssets = async (req: Request): Promise<void> => {
   const newClientBalance =
   Number(clientInfo.Saldo) - transactionValue;
   await investimentoModel.updateAssetStock(newAssetStock, CodAtivo);
-  await clienteModel.updateClientBalance( newClientBalance, CodCliente );
+  await contaModel.updateBalance( newClientBalance, CodCliente );
   
   // Adiciona a compra ao registro
   const [purchaseInfo] = await investimentoModel.getPurchase(
@@ -72,10 +72,10 @@ const sellAssets = async (req: Request): Promise<void> => {
   await investimentoModel.updateAssetStock(newAssetStock, CodAtivo);
 
   // Recupera saldo Cliente para débito
-  const [clientInfo] = await clienteModel.getClient(CodCliente);
+  const [clientInfo] = await contaModel.getClient(CodCliente);
   const newClientBalance =
     Number(clientInfo.Saldo) + Number(assetInfo.Valor) * QtdeAtivo;
-  await clienteModel.updateClientBalance(newClientBalance, CodCliente);
+  await contaModel.updateBalance(newClientBalance, CodCliente);
 };
 
 export default {
