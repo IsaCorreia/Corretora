@@ -8,6 +8,15 @@ const getClient = async (CodCliente: number): Promise<IClient[]> => {
   return rows as IClient[];
 };
 
+const addClient = async (
+  NomeCliente: string,
+  Senha: string
+): Promise<ResultSetHeader> => {
+  const addQuery = `INSERT INTO Corretora.Clientes(NomeCliente, Senha) VALUES(?, ?);`;
+  const [result] = await connection.execute(addQuery, [NomeCliente, Senha]);
+  return result as ResultSetHeader;
+};
+
 const getAssetsByClient = async (id: number): Promise<IAsset[]> => {
   const getAssetsQuery = `SELECT 
   AC.CodCliente, AC.CodAtivo, AC.QtdeAtivo, A.Valor
@@ -37,6 +46,7 @@ const updateBalance = async (
 
 export default {
   getClient,
+  addClient,
   getAssetsByClient,
   getBalance,
   updateBalance,
