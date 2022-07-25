@@ -2,6 +2,24 @@ import { ResultSetHeader } from "mysql2";
 import IClient from "../interfaces/IClient";
 import connection from "./connection";
 
+const getClient = async (CodCliente: number): Promise<IClient[]> => {
+  const getQuery = `SELECT * FROM Corretora.Clientes WHERE CodCliente = ?;`;
+  const [rows] = await connection.execute(getQuery, [CodCliente]);
+  return rows as IClient[];
+};
+
+const getAssetsByClient = async (id: number): Promise<IAsset[]> => {
+  const getAssetsQuery = `SELECT 
+  AC.CodCliente, AC.CodAtivo, AC.QtdeAtivo, A.Valor
+  FROM Corretora.Ativos_Cliente AS AC
+  INNER JOIN Corretora.Ativos AS A
+  ON AC.CodAtivo = A.CodAtivo
+  WHERE AC.CodCliente = ?`;
+
+  const [result] = await connection.execute(getAssetsQuery, [id]);
+  return result as IAsset[];
+};
+
 const getBalance = async (id: number): Promise<IClient[]> => {
   const getQuery = `SELECT CodCliente, Saldo FROM Corretora.Clientes WHERE CodCliente = ?;`;
   const [rows] = await connection.execute(getQuery, [id]);
@@ -17,4 +35,9 @@ const updateBalance = async (
   return result as ResultSetHeader;
 };
 
-export default { getBalance, updateBalance };
+export default {
+  getClient,
+  getAssetsByClient,
+  getBalance,
+  updateBalance,
+};
