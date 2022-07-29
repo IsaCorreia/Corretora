@@ -1,4 +1,5 @@
 import { ResultSetHeader } from "mysql2";
+import IAsset from '../interfaces/IAsset';
 import IClient from "../interfaces/IClient";
 import connection from "./connection";
 
